@@ -63,7 +63,7 @@ public class AccountDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE if exists Accoung");
+        db.execSQL("DROP TABLE if exists Account");
         db.execSQL("DROP TABLE if exists Users");
         db.execSQL("DROP TABLE if exists Budget");
         db.execSQL("DROP TABLE if exists Expense");
@@ -119,9 +119,10 @@ public class AccountDB extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean checkIDUsers(Integer id){
+    public Boolean checkID(String Table, Integer id){
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor cursor = myDB.rawQuery("SELECT ID FROM Users WHERE id = ?", new String[] {String.valueOf(id)});
+        String query = "SELECT ID FROM " + Table + " WHERE ID = " + id;
+        Cursor cursor = myDB.rawQuery(query, null);
         if (cursor.moveToFirst()){
             return true;
         }
@@ -130,7 +131,8 @@ public class AccountDB extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertUser(Boolean test,Integer ID, String name, String sex, String dob){
+    // User function
+    public Boolean insertUser(Boolean test,Integer ID, String name, String sex, String dob, String phone){
         if (test){
             return false;
         }
@@ -141,6 +143,7 @@ public class AccountDB extends SQLiteOpenHelper {
             contentValues.put("name", name);
             contentValues.put("sex", sex);
             contentValues.put("dob", dob);
+            contentValues.put("phone", phone);
             long result = myDB.insert("Users", null, contentValues);
             if (result == -1) {
                 return false;
@@ -150,14 +153,14 @@ public class AccountDB extends SQLiteOpenHelper {
             }
         }
     }
-
-    public Boolean updateUser(Boolean test, Integer ID, String name, String sex, String dob){
+    public Boolean updateUser(Boolean test, Integer ID, String name, String sex, String dob, String phone){
         if (test){
             SQLiteDatabase myDB = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put("name", name);
             contentValues.put("sex", sex);
             contentValues.put("dob", dob);
+            contentValues.put("phone", phone);
             String query = "ID = " + ID;
             long result = myDB.update("Users", contentValues, query, null);
             if (result == -1){
@@ -171,7 +174,6 @@ public class AccountDB extends SQLiteOpenHelper {
             return false;
         }
     }
-
     public Boolean deleteUser(Integer ID){
         SQLiteDatabase myDB = this.getWritableDatabase();
         String query = "ID = " + ID;;
@@ -182,5 +184,49 @@ public class AccountDB extends SQLiteOpenHelper {
         else{
             return true;
         }
+    }
+
+    // Budget function
+    public Boolean insertBudget(){
+
+    }
+    public Boolean updateBudget(){
+
+    }
+    public Boolean deleteBudget(){
+
+    }
+
+    // Expense function
+    public Boolean insertExpense(){
+
+    }
+    public Boolean updateExpense(){
+
+    }
+    public Boolean deleteExpense(){
+
+    }
+
+    // Loan function
+    public Boolean insertLoan(){
+
+    }
+    public Boolean updateLoan(){
+
+    }
+    public Boolean deleteLoan(){
+
+    }
+
+    // Interest function
+    public Boolean insertInterest(){
+
+    }
+    public Boolean updateInterest(){
+
+    }
+    public Boolean deleteInterest(){
+
     }
 }
