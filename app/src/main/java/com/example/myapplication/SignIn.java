@@ -13,6 +13,7 @@ public class SignIn extends AppCompatActivity {
     Button btnSignIn, btnSignUp;
     EditText email, password;
     AccountDB myDB;
+    CurrentAccount Acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,8 @@ public class SignIn extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         email = (EditText) findViewById(R.id.Email);
         password = (EditText) findViewById(R.id.Password);
+
+        Acc = new CurrentAccount();
 
         myDB = new AccountDB(this);
 
@@ -37,6 +40,7 @@ public class SignIn extends AppCompatActivity {
                 else{
                     Boolean result = myDB.checkPassword(em, pass);
                     if (result == true){
+                        Acc.id = myDB.getID(em, pass);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
