@@ -12,8 +12,8 @@ import android.widget.Toast;
 public class UserFunction extends AppCompatActivity {
 
     AccountDB myDB;
-    EditText name, sex, dob, phone;
-    Button add, getID, update, delete, btnBackUserInfo;
+    EditText name, phone;
+    Button update, delete, btnBackUserInfo;
     Pointer Acc;
 
     @Override
@@ -26,52 +26,46 @@ public class UserFunction extends AppCompatActivity {
         myDB = new AccountDB(this);
 
         name = findViewById(R.id.name);
-        sex = findViewById(R.id.sex);
-        dob = findViewById(R.id.dob);
         phone = findViewById(R.id.phone);
 
-        add = findViewById(R.id.add);
-        getID = findViewById(R.id.getID);
         update = findViewById(R.id.update);
         delete = findViewById(R.id.delete);
         btnBackUserInfo = findViewById(R.id.btnBackUserInfo);
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String Name = name.getText().toString();
-                String Sex = sex.getText().toString();
-                String Dob = dob.getText().toString();
-                String Phone = phone.getText().toString();
-
-                Boolean result = myDB.insertUser(myDB.checkID("Users", Acc.accountID), Acc.accountID, Name, Sex, Dob, Phone);
-                if (result == false){
-                    Toast.makeText(UserFunction.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(UserFunction.this, "Success", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                    startActivity(intent);
-                }
-            }
-        });
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String Name = name.getText().toString();
+//                String Sex = sex.getText().toString();
+//                String Dob = dob.getText().toString();
+//                String Phone = phone.getText().toString();
+//
+//                Boolean result = myDB.insertUser(myDB.checkID("Users", Acc.accountID), Acc.accountID, Name, Sex, Dob, Phone);
+//                if (result == false){
+//                    Toast.makeText(UserFunction.this, "Failed", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(UserFunction.this, "Success", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), UserInfo.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
         
-        getID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(UserFunction.this, Acc.accountID.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        getID.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(UserFunction.this, Acc.accountID.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
         
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String Name = name.getText().toString();
-                String Sex = sex.getText().toString();
-                String Dob = dob.getText().toString();
                 String Phone = phone.getText().toString();
                 
-                Boolean result = myDB.updateUser(myDB.checkID("Users", Acc.accountID), Acc.accountID, Name, Sex, Dob, Phone);
+                Boolean result = myDB.updateUser(Acc.email, Name, Phone);
                 if (result == false){
                     Toast.makeText(UserFunction.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -86,7 +80,7 @@ public class UserFunction extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean result = myDB.deleteUser(Acc.accountID);
+                Boolean result = myDB.deleteUser(Acc.email);
                 if (result == true){
                     Toast.makeText(UserFunction.this, "Data deleted", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), UserInfo.class);

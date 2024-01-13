@@ -41,7 +41,7 @@ public class SignUp extends AppCompatActivity {
                 }
                 else{
                     if (password.equals(confirm)){
-                        Boolean checkEmailResult = myDB.checkEmail(email);
+                        Boolean checkEmailResult = myDB.checkEmail("Account", email);
                         if(checkEmailResult == false){
                             Boolean result = myDB.insertAccount(email, password);
                             if (result == true){

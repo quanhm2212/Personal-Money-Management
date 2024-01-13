@@ -30,7 +30,7 @@ public class Budget extends AppCompatActivity {
 
         myDB = new AccountDB(this);
 
-        budgetList = myDB.getBudgetList(Acc.accountID);
+        budgetList = myDB.getBudgetList(Acc.userID);
 
         recyclerView = findViewById(R.id.lv_budgetLists);
 
@@ -39,7 +39,7 @@ public class Budget extends AppCompatActivity {
         btnInsertBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean result = myDB.insertBudget(Acc.accountID, "No data", "No data");
+                Boolean result = myDB.insertBudget(Acc.userID, "No data", "No data");
                 if (result == true){
                     Toast.makeText(Budget.this, "Success", Toast.LENGTH_SHORT).show();
                 }
@@ -47,7 +47,7 @@ public class Budget extends AppCompatActivity {
                     Toast.makeText(Budget.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
 
-                budgetList = myDB.getBudgetList(Acc.accountID);
+                budgetList.add(new BudgetList(myDB.getNewBudgetID(), "No data", "No data"));
                 mAdapter.notifyItemInserted(budgetList.size() - 1);
                 recyclerView.scrollToPosition(budgetList.size() - 1);
             }

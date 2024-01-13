@@ -1,26 +1,34 @@
 package com.example.myapplication;
 
 public class UserList {
-    public Integer ID;
+    public Integer UserID;
+    public String Email;
     public String Name;
-    public String Sex;
-    public String Dob;
     public String Phone;
+    public Integer WalletID;
 
-    public UserList(Integer ID, String Name, String Sex, String Dob, String Phone){
-        this.ID = ID;
+    public UserList(Integer UserID, String Email, String Name, String Phone, Integer WalletID){
+        this.UserID = UserID;
+        this.Email = Email;
         this.Name = Name;
-        this.Sex = Sex;
-        this.Dob = Dob;
         this.Phone = Phone;
+        this.WalletID = WalletID;
     }
 
-    public Integer getID() {
-        return ID;
+    public Integer getUserID() {
+        return UserID;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setUserID(Integer userID) {
+        UserID = userID;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getName() {
@@ -31,27 +39,19 @@ public class UserList {
         Name = name;
     }
 
-    public String getSex() {
-        return Sex;
-    }
-
-    public void setSex(String sex) {
-        Sex = sex;
-    }
-
-    public String getDob() {
-        return Dob;
-    }
-
-    public void setDob(String dob) {
-        Dob = dob;
-    }
-
     public String getPhone() {
         return Phone;
     }
 
     public void setPhone(String phone) {
         Phone = phone;
+    }
+
+    public Integer getWalletID() {
+        return WalletID;
+    }
+
+    public void setWalletID(Integer walletID) {
+        WalletID = walletID;
     }
 }
