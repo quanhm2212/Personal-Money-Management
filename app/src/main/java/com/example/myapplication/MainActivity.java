@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     Pointer Acc;
     AccountDB myDB;
-    Button btnUser, btnWallet, btnExpense, btnLoan, btnInterest, btnTotal, btnNextMonth, btnTest3;
+    Button btnUser, btnWallet, btnExpense, btnLoan, btnInterest, btnTotal, btnNextMonth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         btnInterest = findViewById(R.id.btnInterest);
         btnTotal = findViewById(R.id.btnTotal);
         btnNextMonth = findViewById(R.id.btnNextMonth);
-        btnTest3 = findViewById(R.id.btnTest3);
 
         Acc = new Pointer();
 
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ExpenseFunction.class);
+                Intent intent = new Intent(getApplicationContext(), Expense.class);
                 startActivity(intent);
             }
         });
@@ -83,13 +82,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), NextMonth.class);
                 startActivity(intent);
-            }
-        });
-
-        btnTest3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, Acc.userID.toString() + Acc.email.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -6,72 +6,77 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="44dp"
-        android:layout_height="145dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_arrow_right_24" />
-
     <TextView
         android:id="@+id/viewDate"
         android:layout_width="311dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/viewAmount" />
 
     <TextView
         android:id="@+id/viewCategory"
         android:layout_width="311dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/viewDate" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/viewAmount"
         android:layout_width="311dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/viewCategory" />
 
     <TextView
         android:id="@+id/viewLocation"
         android:layout_width="311dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/viewAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/viewDate" />
 
     <View
         android:id="@+id/divider3"
         android:layout_width="409dp"
         android:layout_height="1dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="136dp"
         android:background="?android:attr/listDivider"
+        android:backgroundTint="#0C7810"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="64dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:srcCompat="@drawable/baseline_attach_money_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

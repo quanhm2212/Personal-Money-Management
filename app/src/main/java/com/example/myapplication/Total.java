@@ -14,7 +14,7 @@ public class Total extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculate);
+        setContentView(R.layout.activity_total);
 
         myDB = new AccountDB(this);
 

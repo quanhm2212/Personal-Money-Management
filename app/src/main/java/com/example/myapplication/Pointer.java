@@ -10,9 +10,5 @@ public class Pointer extends Application {
     public static Integer budgetID = 0;
     public static Integer expenseID = 0;
     public static Integer loanID = 0;
-    public static Integer interestId = 0;
-
-    public Integer resetAccount(){
-        return 0;
-    }
+    public static Integer investID = 0;
 }

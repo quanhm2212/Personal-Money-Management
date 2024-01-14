@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ public class Expense extends AppCompatActivity {
     List<ExpenseList> expenseList = new ArrayList<ExpenseList>();
     AccountDB myDB;
     Pointer Acc;
-    Button btnInsertExpense, btnTest;
+    Button btnInsertExpense;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -34,27 +35,22 @@ public class Expense extends AppCompatActivity {
         expenseList = myDB.getExpenseList(Acc.userID);
         
         btnInsertExpense = findViewById(R.id.btnInsertExpense);
-        btnTest = findViewById(R.id.btnTest3);
 
         recyclerView = findViewById(R.id.lv_expenseList);
         
         btnInsertExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean result = myDB.insertExpense(Acc.userID, "test", 0, "test");
+                Boolean result = myDB.insertExpense(Acc.userID, "No data", 0, "No data", "No data");
                 if (result == true){
                     Toast.makeText(Expense.this, "Success", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(Expense.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Expense.this, myDB.getMonth().toString(), Toast.LENGTH_SHORT).show();
+                expenseList.add(new ExpenseList(myDB.getNewExpenseID(), Acc.userID, "No data", 0, "No data", "No data"));
+                mAdapter.notifyItemInserted(expenseList.size() - 1);
+                recyclerView.scrollToPosition(expenseList.size() - 1);
             }
         });
 

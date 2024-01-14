@@ -4,101 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="Edit profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
-
-    <Button
-        android:id="@+id/btnTest3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
+        app:layout_constraintVertical_bias="0.348" />
 
     <Button
         android:id="@+id/btnWallet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wallet"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="My Wallet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintTop_toBottomOf="@+id/btnUser"
+        app:layout_constraintVertical_bias="0.025" />
 
     <Button
         android:id="@+id/btnExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Expense"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="My Expense"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintTop_toBottomOf="@+id/btnWallet"
+        app:layout_constraintVertical_bias="0.032" />
 
     <Button
         android:id="@+id/btnLoan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loan"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="My Loan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintTop_toBottomOf="@+id/btnExpense"
+        app:layout_constraintVertical_bias="0.043" />
 
     <Button
         android:id="@+id/btnInterest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Investment"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="My Investment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.453" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLoan"
+        app:layout_constraintVertical_bias="0.061" />
 
     <Button
         android:id="@+id/btnTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
+        android:text="Total Money"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541" />
+        app:layout_constraintTop_toBottomOf="@+id/btnInterest"
+        app:layout_constraintVertical_bias="0.073" />
 
     <Button
         android:id="@+id/btnNextMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#06baa1"
         android:text="Next month"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTotal"
+        app:layout_constraintVertical_bias="0.102" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="287dp">
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="321dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="80dp"
+        android:text="Welcome User"
+        android:textAlignment="center"
+        android:textColor="#0C7810"
+        android:textColorHint="#00BCD4"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUser"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

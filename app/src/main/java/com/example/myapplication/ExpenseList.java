@@ -10,7 +10,7 @@ public class ExpenseList {
     public Integer Amount;
     public String Location;
 
-    public ExpenseList(Integer expenseID, Integer userID, String date, String category, Integer amount, String location) {
+    public ExpenseList(Integer expenseID, Integer userID, String category, Integer amount, String date, String location) {
         this.ExpenseID = expenseID;
         this.UserID = userID;
         this.Date = date;

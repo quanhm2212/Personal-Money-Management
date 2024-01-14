@@ -50,7 +50,7 @@ public class AccountDB extends SQLiteOpenHelper {
                 "amount INTEGER NOT NULL, " +
                 "startDate TEXT , " +
                 "dueDate TEXT , " +
-                "interest INTEGER NOT NULL, " +
+                "interest REAL NOT NULL, " +
                 "FOREIGN KEY (userID) REFERENCES Users(userID))");
         db.execSQL("CREATE TABLE Investment(" +
                 "investID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -58,7 +58,7 @@ public class AccountDB extends SQLiteOpenHelper {
                 "category VARCHAR(10) NOT NULL, " +
                 "amount INTEGER NOT NULL, " +
                 "startDate TEXT , " +
-                "interest INTEGER NOT NULL, " +
+                "interest REAL NOT NULL, " +
                 "FOREIGN KEY (userID) REFERENCES Users(userID))");
     }
 
@@ -198,73 +198,72 @@ public class AccountDB extends SQLiteOpenHelper {
         return returnList;
     }
 
-// Budget function
-    public Boolean insertBudget(Integer Acc, String status, String goal){
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("ID", Acc);
-        contentValues.put("status", status);
-        contentValues.put("goal", goal);
-        long result = myDB.insert("Budget", null, contentValues);
-        if (result == -1){
-            return false;
-        }
-        else return true;
-    }
-    public Boolean updateBudget(Integer budgetID, String goal, String status){
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("goal", goal);
-        contentValues.put("status", status);
-        String query = "budgetID = " + budgetID;
-        long result = myDB.update("Budget", contentValues, query, null);
-        if (result == -1){
-            return false;
-        }
-        else return true;
-    }
-    public Boolean deleteBudget(Integer budgetID){
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        String query = "budgetID = " + budgetID;
-        long result = myDB.delete("Budget", query, null);
-        if (result == -1){
-            return false;
-        }
-        else return true;
-    }
-
-    public List<BudgetList> getBudgetList(Integer Acc){
-        List<BudgetList> returnList = new ArrayList<>();
-        SQLiteDatabase myDB = this.getReadableDatabase();
-        String query = "SELECT * FROM Budget WHERE ID = " + Acc;
-        Cursor cursor = myDB.rawQuery(query, null);
-        if (cursor.moveToFirst()){
-            do{
-                Integer BudgetID = cursor.getInt(0);
-                String Goal = cursor.getString(3);
-                String Status = cursor.getString(2);
-
-                BudgetList budget = new BudgetList(BudgetID, Goal, Status);
-                returnList.add(budget);
-            }
-            while (cursor.moveToNext());
-        }
-        cursor.close();
-        myDB.close();
-        return returnList;
-    }
-
-    public Integer getNewBudgetID(){
-        SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor cursor = myDB.rawQuery("SELECT budgetID FROM Budget ", null);
-        if (cursor.moveToFirst()){
-            cursor.moveToLast();
-            Integer temp = cursor.getInt(0);
-            cursor.close();
-            return temp;
-        }
-        else return 0;
-    }
+//// Budget function
+//    public Boolean insertBudget(Integer Acc, String status, String goal){
+//        SQLiteDatabase myDB = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("ID", Acc);
+//        contentValues.put("status", status);
+//        contentValues.put("goal", goal);
+//        long result = myDB.insert("Budget", null, contentValues);
+//        if (result == -1){
+//            return false;
+//        }
+//        else return true;
+//    }
+//    public Boolean updateBudget(Integer budgetID, String goal, String status){
+//        SQLiteDatabase myDB = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("goal", goal);
+//        contentValues.put("status", status);
+//        String query = "budgetID = " + budgetID;
+//        long result = myDB.update("Budget", contentValues, query, null);
+//        if (result == -1){
+//            return false;
+//        }
+//        else return true;
+//    }
+//    public Boolean deleteBudget(Integer budgetID){
+//        SQLiteDatabase myDB = this.getWritableDatabase();
+//        String query = "budgetID = " + budgetID;
+//        long result = myDB.delete("Budget", query, null);
+//        if (result == -1){
+//            return false;
+//        }
+//        else return true;
+//    }
+//
+//    public List<BudgetList> getBudgetList(Integer Acc){
+//        List<BudgetList> returnList = new ArrayList<>();
+//        SQLiteDatabase myDB = this.getReadableDatabase();
+//        String query = "SELECT * FROM Budget WHERE ID = " + Acc;
+//        Cursor cursor = myDB.rawQuery(query, null);
+//        if (cursor.moveToFirst()){
+//            do{
+//                Integer BudgetID = cursor.getInt(0);
+//                String Goal = cursor.getString(3);
+//                String Status = cursor.getString(2);
+//
+//                BudgetList budget = new BudgetList(BudgetID, Goal, Status);
+//                returnList.add(budget);
+//            }
+//            while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        myDB.close();
+//        return returnList;
+//    }
+//    public Integer getNewBudgetID(){
+//        SQLiteDatabase myDB = this.getReadableDatabase();
+//        Cursor cursor = myDB.rawQuery("SELECT budgetID FROM Budget ", null);
+//        if (cursor.moveToFirst()){
+//            cursor.moveToLast();
+//            Integer temp = cursor.getInt(0);
+//            cursor.close();
+//            return temp;
+//        }
+//        else return 0;
+//    }
 
 // Wallet function
     public Boolean checkWalletID(Integer Acc){
@@ -309,42 +308,68 @@ public class AccountDB extends SQLiteOpenHelper {
         }
         else return true;
     }
-
-// Expense function
-    public Boolean insertExpense(Integer Acc, String category, Integer amount, String location){
+    public Boolean deleteWallet(Integer ID){
         SQLiteDatabase myDB = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        Cursor cursor = myDB.rawQuery("SELECT DATE('now')", null);
-        cursor.moveToFirst();
-        contentValues.put("date", cursor.getString(0));
-        contentValues.put("userID", Acc);
-        contentValues.put("category", category);
-        contentValues.put("amount", amount);
-        contentValues.put("location", location);
-        long result = myDB.insert("Expense", null, contentValues);
-        cursor.close();
+        String query = "walletID = " + ID;
+        long result = myDB.delete("Wallet", query, null);
         if (result == -1){
             return false;
         }
         else return true;
     }
-    public Boolean updateExpense(Integer walletID, String category, Integer amount, String location){
+
+// Expense function
+    public Boolean insertExpense(Integer Acc, String category, Integer amount, String date, String location){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+//        Cursor cursor = myDB.rawQuery("SELECT DATE('now')", null);
+//        cursor.moveToFirst();
+//        contentValues.put("date", cursor.getString(0));
+        contentValues.put("userID", Acc);
+        contentValues.put("category", category);
+        contentValues.put("amount", amount);
+        contentValues.put("date", date);
+        contentValues.put("location", location);
+        long result = myDB.insert("Expense", null, contentValues);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Boolean updateExpense(Integer expenseID, String category, Integer amount, String date, String location){
         SQLiteDatabase myDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("category", category);
         contentValues.put("amount", amount);
+        contentValues.put("date", date);
         contentValues.put("location", location);
-        String query = "walletID = " + walletID;
+        String query = "expenseID = " + expenseID;
         long result = myDB.update("Expense", contentValues, query, null);
         if (result == -1){
             return false;
         }
         else return true;
     }
-
-//    public Boolean deleteExpense(){
-//
-//    }
+    public Boolean deleteExpense(Integer ID){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String query = "expenseID = " + ID;
+        long result = myDB.delete("Expense", query, null);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Integer getNewExpenseID(){
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        Cursor cursor = myDB.rawQuery("SELECT expenseID FROM Expense ", null);
+        if (cursor.moveToFirst()){
+            cursor.moveToLast();
+            Integer temp = cursor.getInt(0);
+            cursor.close();
+            return temp;
+        }
+        else return 0;
+}
     public List<ExpenseList> getExpenseList(Integer ID){
         List<ExpenseList> returnList = new ArrayList<>();
         SQLiteDatabase myDB = this.getReadableDatabase();
@@ -354,28 +379,29 @@ public class AccountDB extends SQLiteOpenHelper {
             do{
                 Integer ExpenseID = cursor.getInt(0);
                 Integer UserID = cursor.getInt(1);
-                String Date = cursor.getString(2);
-                String Category = cursor.getString(3);
-                Integer Amount = cursor.getInt(4);
+                String Category = cursor.getString(2);
+                Integer Amount = cursor.getInt(3);
+                String Date = cursor.getString(4);
                 String Location = cursor.getString(5);
 
-                ExpenseList expense = new ExpenseList(ExpenseID, UserID, Date, Category, Amount, Location);
+                ExpenseList expense = new ExpenseList(ExpenseID, UserID, Category, Amount, Date, Location);
                 returnList.add(expense);
             }
             while (cursor.moveToNext());
         }
         cursor.close();
-        myDB.close();
         return returnList;
 }
 
 //// Loan function
-    public Boolean insertLoan(Integer Acc, Integer amount, String category, Integer interest){
+    public Boolean insertLoan(Integer Acc, String category, Integer amount, String startDate, String dueDate, Double interest){
         SQLiteDatabase myDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userID", Acc);
         contentValues.put("amount", amount);
         contentValues.put("category", category);
+        contentValues.put("startDate", startDate);
+        contentValues.put("dueDate", dueDate);
         contentValues.put("interest", interest);
         long result = myDB.insert("Loan", null, contentValues);
         if (result == -1){
@@ -383,20 +409,73 @@ public class AccountDB extends SQLiteOpenHelper {
         }
         else return true;
     }
-//    public Boolean updateLoan(){
-//
-//    }
-//    public Boolean deleteLoan(){
-//
-//    }
+    public Boolean updateLoan(Integer loanID, String category, Integer amount, String startDate, String dueDate, Double interest){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("amount", amount);
+        contentValues.put("category", category);
+        contentValues.put("startDate", startDate);
+        contentValues.put("dueDate", dueDate);
+        contentValues.put("interest", interest);
+        String query = "loanID = " + loanID;
+        long result = myDB.update("Loan", contentValues, query, null);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Boolean deleteLoan(Integer ID){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String query = "loanID = " + ID;
+        long result = myDB.delete("Loan", query, null);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Integer getNewLoanID(){
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        Cursor cursor = myDB.rawQuery("SELECT loanID FROM Loan ", null);
+        if (cursor.moveToFirst()){
+            cursor.moveToLast();
+            Integer temp = cursor.getInt(0);
+            cursor.close();
+            return temp;
+        }
+        else return 0;
+    }
+    public List<LoanList> getLoanList(Integer ID){
+        List<LoanList> returnList = new ArrayList<>();
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        String query = "SELECT * FROM Loan WHERE userID = " + ID;
+        Cursor cursor = myDB.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            do{
+                Integer LoanID = cursor.getInt(0);
+                Integer UserID = cursor.getInt(1);
+                String Category = cursor.getString(2);
+                Integer Amount = cursor.getInt(3);
+                String StartDate = cursor.getString(4);
+                String DueDate = cursor.getString(5);
+                Double Interest = cursor.getDouble(6);
+
+                LoanList loan = new LoanList(LoanID, UserID, Category, Amount, StartDate, DueDate, Interest);
+                returnList.add(loan);
+            }
+            while (cursor.moveToNext());
+        }
+    cursor.close();
+    return returnList;
+}
 //
 //// Interest function
-    public Boolean insertInvestment(Integer Acc, Integer amount, String category, Integer interest){
+    public Boolean insertInvestment(Integer Acc, Integer amount, String category, String startDate, Double interest){
         SQLiteDatabase myDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userID", Acc);
         contentValues.put("amount", amount);
         contentValues.put("category", category);
+        contentValues.put("startDate", startDate);
         contentValues.put("interest", interest);
         long result = myDB.insert("Investment", null, contentValues);
         if (result == -1){
@@ -404,56 +483,80 @@ public class AccountDB extends SQLiteOpenHelper {
         }
         else return true;
     }
-//    public Boolean updateInterest(){
-//
-//    }
-//    public Boolean deleteInterest(){
-//
-//    }
-
-//    db.execSQL("INSERT INTO Expense (ID, category, amount, date, location) VALUES" +
-//                "(1, food, 1, 20-1-2023, hanoi), " +
-//                "(2, house, 2, 18-6-2023, hanoi), " +
-//                "(3, clothes, 3, 11-2-2023, da_nang)");
-//        db.execSQL("INSERT INTO Loan (ID, category, amount, startDate, dueDate, interest) VALUES" +
-//                "(1, food, 1, 12-5-2023, 12-6-2023, 0.4), " +
-//                "(2, house, 1, 22-5-2023, 22-9-2023, 0.2), " +
-//                "(3, clothes, 1, 12-5-2023, 12-6-2023, 0.4)");
-//        db.execSQL("INSERT INTO Investment (ID, category, amount, startDate, interest) VALUES" +
-//                "(1, food, 1, 12-5-2023, 0.4), " +
-//                "(1, food, 1, 12-5-2023, 0.4), " +
-//                "(1, food, 1, 12-5-2023, 0.4)");
-
-//    public void insert(){
-//        SQLiteDatabase myDB = this.getWritableDatabase();
-//        myDB.execSQL("INSERT INTO Expense (ID, category, amount, date, location) VALUES" +
-//                "(1, 'food', 1, '20-1-2023', 'hanoi'), " +
-//                "(2, 'house', 2, '18-6-2023', 'hanoi'), " +
-//                "(3, 'clothes', 3, '11-2-2023', 'da_nang')");
-//        myDB.execSQL("INSERT INTO Loan (ID, category, amount, startDate, dueDate, interest) VALUES" +
-//                "(1, 'food', 1, '12-5-2023', '12-6-2023', 4), " +
-//                "(2, 'house', 2, '22-5-2023', '22-9-2023', 2), " +
-//                "(3, 'clothes', 3, '12-5-2023', '12-6-2023', 4)");
-//        myDB.execSQL("INSERT INTO Investment (ID, category, amount, startDate, interest) VALUES" +
-//                "(1, 'food', 1, '12-5-2023', 1), " +
-//                "(2, 'house', 2, '12-5-2023', 2), " +
-//                "(3, 'clothes', 3, '12-5-2023', 3)");
-//    }
-
-    public Integer getMonth(){
+    public Boolean updateInvestment(Integer investID, Integer amount, String category, String startDate, Double interest){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("amount", amount);
+        contentValues.put("category", category);
+        contentValues.put("startDate", startDate);
+        contentValues.put("interest", interest);
+        String query = "investID = " + investID;
+        long result = myDB.update("Investment", contentValues, query, null);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Boolean deleteInvest(Integer ID){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String query = "investID = " + ID;
+        long result = myDB.delete("Investment", query, null);
+        if (result == -1){
+            return false;
+        }
+        else return true;
+    }
+    public Integer getNewInvestID(){
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor cursor = myDB.rawQuery("SELECT strftime('%Y', date) FROM Expense", null);
+        Cursor cursor = myDB.rawQuery("SELECT investID FROM Investment ", null);
         if (cursor.moveToFirst()){
+            cursor.moveToLast();
             Integer temp = cursor.getInt(0);
             cursor.close();
             return temp;
         }
         else return 0;
     }
+    public List<InvestList> getInvestList(Integer ID){
+        List<InvestList> returnList = new ArrayList<>();
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        String query = "SELECT * FROM Investment WHERE userID = " + ID;
+        Cursor cursor = myDB.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            do{
+                Integer InvestID = cursor.getInt(0);
+                Integer UserID = cursor.getInt(1);
+                String Category = cursor.getString(2);
+                Integer Amount = cursor.getInt(3);
+                String StartDate = cursor.getString(4);
+                Double Interest = cursor.getDouble(5);
+
+                InvestList invest = new InvestList(InvestID, UserID, Category, Amount, StartDate, Interest);
+                returnList.add(invest);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return returnList;
+}
+
+//    public Integer getMonth(){
+//        SQLiteDatabase myDB = this.getReadableDatabase();
+//        Cursor cursor = myDB.rawQuery("SELECT strftime('%m', date) FROM Expense", null);
+//        if (cursor.moveToFirst()){
+//            Integer temp = cursor.getInt(0);
+//            cursor.close();
+//            return temp;
+//        }
+//        else return 0;
+//    }
 
     public Integer totalWallet(Integer Acc){
         SQLiteDatabase myDB = this.getWritableDatabase();
-        String query = "SELECT Wallet.amount FROM Wallet, Users WHERE Wallet.walletID = Users.walletID AND userID = " + Acc;
+        String query = "" +
+                "SELECT Wallet.amount " +
+                "FROM Wallet, Users " +
+                "WHERE Wallet.walletID = Users.walletID AND userID = " + Acc;
         Cursor cursor = myDB.rawQuery(query, null);
         if (cursor.moveToFirst()){
             Integer temp = cursor.getInt(0);
@@ -465,7 +568,10 @@ public class AccountDB extends SQLiteOpenHelper {
 
     public Integer totalLoan(Integer Acc){
         SQLiteDatabase myDB = this.getWritableDatabase();
-        String query = "SELECT SUM(Loan.amount) FROM Loan WHERE Loan.userID = " + Acc;
+        String query = "" +
+                "SELECT SUM(Loan.amount) " +
+                "FROM Loan " +
+                "WHERE Loan.userID = " + Acc;
         Cursor cursor = myDB.rawQuery(query, null);
         if (cursor.moveToFirst()){
             Integer temp = cursor.getInt(0);
@@ -477,7 +583,10 @@ public class AccountDB extends SQLiteOpenHelper {
 
     public Integer totalInvest(Integer Acc){
         SQLiteDatabase myDB = this.getWritableDatabase();
-        String query = "SELECT SUM(Investment.amount) FROM Investment WHERE Investment.userID = " + Acc;
+        String query = "" +
+                "SELECT SUM(Investment.amount) " +
+                "FROM Investment " +
+                "WHERE Investment.userID = " + Acc;
         Cursor cursor = myDB.rawQuery(query, null);
         if (cursor.moveToFirst()){
             Integer temp = cursor.getInt(0);
@@ -489,7 +598,10 @@ public class AccountDB extends SQLiteOpenHelper {
 
     public Integer totalExpense(Integer Acc){
         SQLiteDatabase myDB = this.getWritableDatabase();
-        String query = "SELECT SUM(Expense.amount) FROM Expense WHERE Expense.userID = " + Acc;
+        String query = "" +
+                "SELECT SUM(Expense.amount) " +
+                "FROM Expense " +
+                "WHERE Expense.userID = " + Acc;
         Cursor cursor = myDB.rawQuery(query, null);
         if (cursor.moveToFirst()){
             Integer temp = cursor.getInt(0);
@@ -497,5 +609,35 @@ public class AccountDB extends SQLiteOpenHelper {
             return temp;
         }
         else return 0;
+    }
+
+    public Double nextMonthInterestFromLoan(Integer ID){
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        String query = "" +
+                "SELECT amount * interest " +
+                "FROM Loan " +
+                "WHERE Loan.userID = " + ID;
+        Cursor cursor = myDB.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            Double temp = cursor.getDouble(0);
+            cursor.close();
+            return temp;
+        }
+        else return 0.0;
+    }
+
+    public Double nextMonthInterestFromInvestment(Integer ID){
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        String query = "" +
+                "SELECT amount * interest " +
+                "FROM Investment " +
+                "WHERE Investment.userID = " + ID;
+        Cursor cursor = myDB.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            Double temp = cursor.getDouble(0);
+            cursor.close();
+            return temp;
+        }
+        else return 0.0;
     }
 }
